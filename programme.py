@@ -2,5 +2,8 @@
 
 import numpy as np
 
-a=np.array([1,2,3])
-print(a)
+donneeBrut = np.genfromtxt('preferences.csv', dtype=str, delimiter=',')
+
+for ligne in donneeBrut:
+  for item in ligne:
+    print(item)
