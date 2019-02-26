@@ -33,17 +33,25 @@ def sortMarks(marks):
             sortHelper.append(5)
     return [x for _,x in sorted(zip(sortHelper,marks))]
 
-def getNumberOfGroup(size):
+def getNumberOf3Group(size):
     """Return a tuple of form (number of groups of 3, number of groups of 2)
 
     Function minimizes the number of groups of 2
     """
     if size%3 == 0:
-        return (int(size/3), 0)
+        return int(size/3)
     if size%3 == 1:
-        return (int((size-4)/3), 2)
+        return int((size-4)/3)
     if size%3 == 2:
-        return (int((size-2)/3), 1)
+        return int((size-2)/3)
+
+def getNumberOf2Group(size):
+    if size%3 == 0:
+        return 0
+    if size%3 == 1:
+        return 2
+    if size%3 == 2:
+        return 1
 
 
 def getNoteeWithMark(noter, mark):
