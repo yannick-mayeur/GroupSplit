@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
+import itertools
 import matplotlib.pyplot as plt
 
 donneeBrut = np.genfromtxt('preferences.csv', dtype=str, delimiter=',')
@@ -110,11 +111,31 @@ def getMarkOfFor(noter, notee):
             isFound = True
     return donneeBrut[i][j]
 
+def bruteForceRepatition(personnes):
+    i = 0
+    for group in list(itertools.combinations(personnes, r = 3)):
+        group = list(group)
+        pCopy = [x for x in personnes if x not in group]
+        for item in list(itertools.combinations(pCopy, r = 3)):
+            item = list(item)
+            seen = (group + item)
+            pCopy2 = [x for x in personnes if x not in seen]
+            for item2 in list(itertools.combinations(pCopy2, r = 3)):
+                item2 = list(item2)
+                seen = (group + item + item2)
+                pCopy3 = [x for x in personnes if x not in seen]
+                for item3 in list(itertools.combinations(pCopy3, r = 2)):
+                    item3 = list(item3)
+                    i += 1
+                    print(group, item, item2, item3)
+
 # print(getNoteeWithMark("21708799", "I"))
 # print(getMarkOfFor("21706894", "21505186"))
 # print(getMarksOfGroup(fakeRepartition[0]))
 # print(getRepartitionMark(fakeRepartition))
-print(getNumberOfGroup(10))
-print(getNumberOfGroup(11))
-print(getNumberOfGroup(12))
-print(getNumberOfGroup(13))
+# print(getNumberOf3Group(10))
+# print(getNumberOf3Group(11))
+# print(getNumberOf3Group(12))
+# print(getNumberOf3Group(13))
+bruteForceRepatition(donneeBrut[0][1:])
+# print(list(itertools.combinations(donneeBrut[0][1:], r = 3)))
