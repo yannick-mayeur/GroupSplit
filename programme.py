@@ -231,6 +231,32 @@ def bestRepartition(repartitions):
             best.append((getRepartitionMark(repartitions[i]), repartitions[i]))
     return best
 
+def algoPermu(people):
+    nb2 = getNumberOf2Group(len(people))
+    nb3 = getNumberOf3Group(len(people))
+    permu = list(itertools.permutations(people, r = len(people)))
+    res = []
+    for r in permu:
+        r = list(r)
+        res.append([])
+        for i in range(nb2):
+            item = [r.pop(), r.pop()]
+            item.sort()
+            res[-1].append(item)
+        for i in range(nb3):
+            item = [r.pop(), r.pop(), r.pop()]
+            item.sort()
+            res[-1].append(item)
+    uniqueRes = []
+    for elem in res:
+        if elem not in uniqueRes:
+            uniqueRes.append(elem)
+    print(len(res))
+    print(len(uniqueRes))
+    return uniqueRes
+
+
+
 
 # print(getNoteeWithMark("21708799", "I"))
 # print(getMarkOfFor("21706894", "21505186"))
@@ -244,8 +270,9 @@ def bestRepartition(repartitions):
 # print(res)
 # print(list(itertools.combinations(donneeBrut[0][1:], r = 3)))
 # combinations = list(itertools.combinations(donneeBrut[0][1:], r = 3))
-combinations = list(itertools.combinations("ABCDEFGHI", r = 3))
-res = algo(combinations, {})
-print(explore(res, list(res.keys())[27]))
+# combinations = list(itertools.combinations("ABCDEFGHI", r = 3))
+# res = algo(combinations, {})
+# print(explore(res, list(res.keys())[27]))
 # res = exploreAll(res)
 # print(res)
+algoPermu("ABCDEFGHI")
