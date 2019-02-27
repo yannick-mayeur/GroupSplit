@@ -147,6 +147,30 @@ def algo(combinations, repartitions):
             repartitions[group].append(combination)
     return algo(combinations, repartitions)
 
+def explore(graph, start):
+    stack = []
+    discovered = []
+    repartitions = [[]]
+    stack.append(start)
+    nbGrp = 0
+    while stack != []:
+        if nbGrp != 0 and nbGrp%3 == 0:
+            nbGrp += 1
+            repartitions.append([])
+            repartitions[-1].append(start)
+            discovered.append(start)
+        vertex = stack.pop()
+        if vertex not in discovered:
+            repartitions[-1].append(vertex)
+            discovered.append(vertex)
+            for w in graph[vertex]:
+                stack.append(w)
+        nbGrp += 1
+    return repartitions
+
+
+
+
 def compare(mark1, mark2):
     c1 = 0
     c2 = 0
