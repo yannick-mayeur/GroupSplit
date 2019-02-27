@@ -131,6 +131,21 @@ def bruteForceRepatition(personnes):
                     res.append([group, item, item2, item3])
     return res
 
+
+def algo(combinations, repartitions):
+    if combinations == []:
+        return repartitions
+    group = combinations[0]
+    repartitions[group] = []
+    del combinations[0]
+    firstLetter = None
+    for combination in combinations:
+        if firstLetter is not None and firstLetter != combination[0]:
+            break
+        if set(combination).intersection(group) == set([]):
+            firstLetter = combination[0]
+            repartitions[group].append(combination)
+    return algo(combinations, repartitions)
 # print(getNoteeWithMark("21708799", "I"))
 # print(getMarkOfFor("21706894", "21505186"))
 # print(getMarksOfGroup(fakeRepartition[0]))
