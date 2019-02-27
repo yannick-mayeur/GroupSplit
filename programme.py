@@ -163,24 +163,27 @@ def explore(graph, start):
     discovered = []
     repartitions = [[]]
     stack.append(start)
-    nbGrp = 0
     while stack != []:
-        if nbGrp != 0 and nbGrp%3 == 0:
-            nbGrp += 1
+        vertex = stack.pop()
+        if vertex is None:
             repartitions.append([])
             repartitions[-1].append(start)
-            discovered.append(start)
-        vertex = stack.pop()
-        if vertex not in discovered:
+            continue
+        else:
             repartitions[-1].append(vertex)
+        if vertex not in discovered:
             discovered.append(vertex)
+            stack.append(None)
             for w in graph[vertex]:
                 stack.append(w)
-        nbGrp += 1
-    return repartitions
-
-
-
+    i = 0
+    res = []
+    while i < len(repartitions):
+        r = repartitions[i]
+        if len(r) == 3:
+            res.append(r)
+        i += 1
+    return res
 
 def compare(mark1, mark2):
     c1 = 0
@@ -243,6 +246,7 @@ def bestRepartition(repartitions):
 # print(list(itertools.combinations(donneeBrut[0][1:], r = 3)))
 # combinations = list(itertools.combinations(donneeBrut[0][1:], r = 3))
 combinations = list(itertools.combinations("ABCDEFGHI", r = 3))
-# res = algo(combinations, {})
 res = algo(combinations, {})
-print(explore(res, list(res.keys())[0]))
+print(explore(res, list(res.keys())[27]))
+# res = exploreAll(res)
+# print(res)
