@@ -275,4 +275,7 @@ def algoPermu(people):
 # print(explore(res, list(res.keys())[27]))
 # res = exploreAll(res)
 # print(res)
-algoPermu("ABCDEFGHI")
+people = donneeBrut[0][1:]
+res = algoPermu(people)
+res = bestRepartition(res) 
+print(res)
