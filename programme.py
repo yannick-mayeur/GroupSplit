@@ -2,7 +2,6 @@
 
 import numpy as np
 import itertools
-import matplotlib.pyplot as plt
 
 donneeBrut = np.genfromtxt('preferences.csv', dtype=str, delimiter=',')
 
