@@ -138,12 +138,8 @@ def algo(combinations, repartitions):
     group = combinations[0]
     repartitions[group] = []
     del combinations[0]
-    firstLetter = None
     for combination in combinations:
-        if firstLetter is not None and firstLetter != combination[0]:
-            break
         if set(combination).intersection(group) == set([]):
-            firstLetter = combination[0]
             repartitions[group].append(combination)
     return algo(combinations, repartitions)
 
