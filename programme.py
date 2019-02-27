@@ -113,6 +113,7 @@ def getMarkOfFor(noter, notee):
 
 def bruteForceRepatition(personnes):
     i = 0
+    res = []
     for group in list(itertools.combinations(personnes, r = 3)):
         group = list(group)
         pCopy = [x for x in personnes if x not in group]
@@ -127,7 +128,8 @@ def bruteForceRepatition(personnes):
                 for item3 in list(itertools.combinations(pCopy3, r = 2)):
                     item3 = list(item3)
                     i += 1
-                    print(group, item, item2, item3)
+                    res.append([group, item, item2, item3])
+    return res
 
 # print(getNoteeWithMark("21708799", "I"))
 # print(getMarkOfFor("21706894", "21505186"))
