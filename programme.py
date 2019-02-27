@@ -3,7 +3,7 @@
 import numpy as np
 import itertools
 
-donneeBrut = np.genfromtxt('preferences.csv', dtype=str, delimiter=',')
+donneeBrut = np.genfromtxt('../DONNEES/preferences.csv', dtype=str, delimiter=',')
 
 fakeRepartition = [
     [21706894, 21505186, 21712798],
