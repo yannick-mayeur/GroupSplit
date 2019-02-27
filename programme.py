@@ -143,6 +143,21 @@ def algo(combinations, repartitions):
             repartitions[group].append(combination)
     return algo(combinations, repartitions)
 
+def exploreAll(graph):
+    keys = list(graph.keys())
+    fkLetter = keys[0][0]
+    i = 1
+    repartitions = []
+    while i < len(keys):
+        if fkLetter != keys[i][0]:
+            break
+        print(keys[i])
+        print(i)
+        res = explore(graph, keys[i])
+        # print(res)
+        i += 1
+    return repartitions
+
 def explore(graph, start):
     stack = []
     discovered = []
