@@ -146,6 +146,55 @@ def algo(combinations, repartitions):
             firstLetter = combination[0]
             repartitions[group].append(combination)
     return algo(combinations, repartitions)
+
+def compare(mark1, mark2):
+    c1 = 0
+    c2 = 0
+    if mark1 == "TB":
+        c1 = 5
+    elif mark1 == "B":
+        c1 = 4
+    elif mark1 == "AB":
+        c1 = 3
+    elif mark1 == "P":
+        c1 = 2
+    elif mark1 == "I":
+        c1 = 1
+    elif mark == "AR":
+        c1 = 1
+    if mark2 == "TB":
+        c2 = 5
+    elif mark2 == "B":
+        c2 = 4
+    elif mark2 == "AB":
+        c2 = 3
+    elif mark2 == "P":
+        c2 = 2
+    elif mark2 == "I":
+        c2 = 1
+    elif mark2 == "AR":
+        c2 = 0
+    if c1 > c2:
+        return 1
+    elif c1 < c2:
+        return -1
+    return 0
+
+
+def bestRepartition(repartitions):
+    best = []
+    best.append(repartitions[0])
+    i = 0
+    while i < (len(repartitions)-1):
+        i += 1
+        if compare(getRepartitionMark(repartitions[i]), best[0][0]) == 1:
+            best = []
+            best.append((getRepartitionMark(repartitions[i]), repartitions[i]))
+        elif compare(getRepartitionMark(repartitions[i]), best[0][0]) == 0:
+            best.append((getRepartitionMark(repartitions[i]), repartitions[i]))
+    return best
+
+
 # print(getNoteeWithMark("21708799", "I"))
 # print(getMarkOfFor("21706894", "21505186"))
 # print(getMarksOfGroup(fakeRepartition[0]))
