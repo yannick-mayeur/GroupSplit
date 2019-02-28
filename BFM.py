@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 
 import numpy as np
+import csv
+import sys
 import itertools
 
-donneeBrut = np.genfromtxt('../DONNEES/preferences.csv', dtype=str, delimiter=',')
+if len(sys.argv) < 2:
+    raise RuntimeError("You must specify the -EXT")
+
+ext = sys.argv[1][1:]
+
+donneeBrut = np.genfromtxt('../DONNEES/preferences' + ext + '.csv', dtype=str, delimiter=',')
 
 fakeRepartition = [
     [21706894, 21505186, 21712798],
@@ -278,4 +285,15 @@ def algoPermu(people):
 people = donneeBrut[0][1:]
 res = algoPermu(people)
 res = bestRepartition(res) 
-print(res)
+final = []
+stringbuilder = " "
+for r in res:
+  for item in r[1]:
+    stringbuilder += ' '.join(map(str, item))
+    stringbuilder += '; '
+  stringbuilder = stringbuilder[:-2]
+  stringbuilder += '\n '
+
+with open('BFM.csv', 'w+') as the_file:
+    the_file.write(stringbuilder)
+print(stringbuilder)
