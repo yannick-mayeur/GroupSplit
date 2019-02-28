@@ -41,7 +41,7 @@ def sortMarks(marks):
     return [x for _,x in sorted(zip(sortHelper,marks))]
 
 def getNumberOf3Group(size):
-    """Return a tuple of form (number of groups of 3, number of groups of 2)
+    """Return the number of groups of 3
 
     Function minimizes the number of groups of 2
     """
@@ -53,6 +53,10 @@ def getNumberOf3Group(size):
         return int((size-2)/3)
 
 def getNumberOf2Group(size):
+    """Return the number of groups of 2
+
+    Function minimizes the number of groups of 2
+    """
     if size%3 == 0:
         return 0
     if size%3 == 1:
@@ -117,26 +121,6 @@ def getMarkOfFor(noter, notee):
             isFound = True
     return donneeBrut[i][j]
 
-def bruteForceRepatition(personnes):
-    i = 0
-    res = []
-    for group in list(itertools.combinations(personnes, r = 3)):
-        group = list(group)
-        pCopy = [x for x in personnes if x not in group]
-        for item in list(itertools.combinations(pCopy, r = 3)):
-            item = list(item)
-            seen = (group + item)
-            pCopy2 = [x for x in personnes if x not in seen]
-            for item2 in list(itertools.combinations(pCopy2, r = 3)):
-                item2 = list(item2)
-                seen = (group + item + item2)
-                pCopy3 = [x for x in personnes if x not in seen]
-                for item3 in list(itertools.combinations(pCopy3, r = 2)):
-                    item3 = list(item3)
-                    i += 1
-                    res.append([group, item, item2, item3])
-    return res
-
 repartitions = []
 
 def recursive(people, currentRepartition):
@@ -154,60 +138,12 @@ def recursive(people, currentRepartition):
     res.append(group)
     recursive(pCopy, res)
 
-def algo(combinations, repartitions):
-    if combinations == []:
-        return repartitions
-    group = combinations[0]
-    repartitions[group] = []
-    del combinations[0]
-    for combination in combinations:
-        if set(combination).intersection(group) == set([]):
-            repartitions[group].append(combination)
-    return algo(combinations, repartitions)
-
-def exploreAll(graph):
-    keys = list(graph.keys())
-    fkLetter = keys[0][0]
-    i = 1
-    repartitions = []
-    while i < len(keys):
-        if fkLetter != keys[i][0]:
-            break
-        print(keys[i])
-        print(i)
-        res = explore(graph, keys[i])
-        # print(res)
-        i += 1
-    return repartitions
-
-def explore(graph, start):
-    stack = []
-    discovered = []
-    repartitions = [[]]
-    stack.append(start)
-    while stack != []:
-        vertex = stack.pop()
-        if vertex is None:
-            repartitions.append([])
-            repartitions[-1].append(start)
-            continue
-        else:
-            repartitions[-1].append(vertex)
-        if vertex not in discovered:
-            discovered.append(vertex)
-            stack.append(None)
-            for w in graph[vertex]:
-                stack.append(w)
-    i = 0
-    res = []
-    while i < len(repartitions):
-        r = repartitions[i]
-        if len(r) == 3:
-            res.append(r)
-        i += 1
-    return res
-
 def compare(mark1, mark2):
+    """Return comparison between params
+    1 if mark1 > mark2
+    -1 if mark1 < mark2
+    = if mark1 = mark2
+    """
     c1 = 0
     c2 = 0
     if mark1 == "TB":
@@ -240,8 +176,8 @@ def compare(mark1, mark2):
         return -1
     return 0
 
-
 def bestRepartition(repartitions):
+    """Return list of equally best repartitions"""
     best = []
     best.append(repartitions[0])
     i = 0
@@ -255,6 +191,7 @@ def bestRepartition(repartitions):
     return best
 
 def algoPermu(people):
+    """Return all possible groups"""
     nb2 = getNumberOf2Group(len(people))
     nb3 = getNumberOf3Group(len(people))
     permu = list(itertools.permutations(people, r = len(people)))
@@ -278,37 +215,17 @@ def algoPermu(people):
     print(len(uniqueRes))
     return uniqueRes
 
-
-
-
-# print(getNoteeWithMark("21708799", "I"))
-# print(getMarkOfFor("21706894", "21505186"))
-# print(getMarksOfGroup(fakeRepartition[0]))
-# print(getRepartitionMark(fakeRepartition))
-# print(getNumberOf3Group(10))
-# print(getNumberOf3Group(11))
-# print(getNumberOf3Group(12))
-# print(getNumberOf3Group(13))
-# res = bruteForceRepatition(donneeBrut[0][1:])
-# print(res)
-# print(list(itertools.combinations(donneeBrut[0][1:], r = 3)))
-# combinations = list(itertools.combinations(donneeBrut[0][1:], r = 3))
-# combinations = list(itertools.combinations("ABCDEFGHI", r = 3))
-# res = algo(combinations, {})
-# print(explore(res, list(res.keys())[27]))
-# res = exploreAll(res)
-# print(res)
 people = donneeBrut[0][1:]
 recursive(people, [])
 res = bestRepartition(repartitions) 
 final = []
 stringbuilder = " "
 for r in res:
-  for item in r[1]:
-    stringbuilder += ' '.join(map(str, item))
+    for item in r[1]:
+        stringbuilder += ' '.join(map(str, item))
     stringbuilder += '; '
-  stringbuilder = stringbuilder[:-2]
-  stringbuilder += '\n '
+    stringbuilder = stringbuilder[:-2]
+    stringbuilder += '\n '
 
 with open('BFM.csv', 'w+') as the_file:
     the_file.write(stringbuilder[:-1])
