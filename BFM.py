@@ -194,8 +194,6 @@ def algoPermu(people):
     for elem in res:
         if elem not in uniqueRes:
             uniqueRes.append(elem)
-    print(len(res))
-    print(len(uniqueRes))
     return uniqueRes
 
 people = donneeBrut[0][1:]
@@ -212,4 +210,3 @@ for r in res:
 
 with open('BFM.csv', 'w+') as the_file:
     the_file.write(stringbuilder)
-print(stringbuilder)
