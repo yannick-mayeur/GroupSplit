@@ -299,8 +299,8 @@ def algoPermu(people):
 # res = exploreAll(res)
 # print(res)
 people = donneeBrut[0][1:]
-res = algoPermu(people)
-res = bestRepartition(res) 
+recursive(people, [])
+res = bestRepartition(repartitions) 
 final = []
 stringbuilder = " "
 for r in res:
@@ -311,5 +311,5 @@ for r in res:
   stringbuilder += '\n '
 
 with open('BFM.csv', 'w+') as the_file:
-    the_file.write(stringbuilder)
-print(stringbuilder)
+    the_file.write(stringbuilder[:-1])
+print(stringbuilder[:-2])
