@@ -137,6 +137,22 @@ def bruteForceRepatition(personnes):
                     res.append([group, item, item2, item3])
     return res
 
+repartitions = []
+
+def recursive(people, currentRepartition):
+  if len(people) == 0:
+    repartitions.append(currentRepartition)
+    return
+  if len(people) > 4 or len(people) == 3:
+    num = 3
+  else:
+    num = 2
+  for group in list(itertools.combinations(people, r = num)):
+    group = list(group)
+    pCopy = [x for x in people if x not in group]
+    res = currentRepartition.copy()
+    res.append(group)
+    recursive(pCopy, res)
 
 def algo(combinations, repartitions):
     if combinations == []:
